@@ -1,0 +1,229 @@
+Scale -1.000000 1.000000 1.000000
+
+Integrator "directlighting" "integer maxdepth" 1
+
+Camera "perspective" "float fov" [115.000000 ] "float focaldistance" 400 "float lensradius" 30
+
+ #Sampler "stratified" "integer pixelsamples" [121]
+#Sampler "multijittered" "integer samples" [11]
+Sampler "bushpp" "integer base" [11] "integer strength" [3]
+Film "image" "integer xresolution" [512 ] "integer yresolution" [512 ]
+"string filename" "cornell-texturedplane-f400.exr"
+
+
+PixelFilter "box" "float xwidth" [0.5] "float ywidth" [0.5]
+
+WorldBegin
+
+############################################################################
+# Light Source Definitions
+############################################################################
+AttributeBegin
+#Rotate 10 1 0 0
+LightSource "point" "point from" [0.000000 400.000000 300.000000 ] "color I" [412300 341100 298600 ]
+AttributeEnd
+
+############################################################################
+# Wall Definitions
+############################################################################
+AttributeBegin
+
+#Back wall
+#Texture "checks" "spectrum" "checkerboard"
+#"float uscale" [1200] "float vscale" [1200]
+#"rgb tex1" [1 1 1] "rgb tex2" [0 0 0]
+#Material "matte" "texture Kd" "checks"
+
+#Texture "polkadots" "spectrum" "dots"
+#"float uscale" [8000] "float vscale" [8000]
+#Material "matte" "texture Kd" "polkadots"
+
+Texture "marblenoise" "color" "wrinkled"
+"float roughness" [0.5]
+Material "matte" "texture Kd" "marblenoise"
+
+Shape "trianglemesh" "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+600.000000 -600.000000 1000.000000
+-600.000000 -600.000000 1000.000000
+-600.000000 600.000000 1000.000000
+600.000000 600.000000 1000.000000 ]
+"point2 uv" [ 0 0 0.7 0 0.7 0.7 0 0.7]
+AttributeEnd
+
+#left wall
+AttributeBegin
+
+#Material "matte" "color Kd" [.5 .5 .9]
+
+Texture "carpet" "color" "imagemap" "string filename" ["carpet002.tga"]
+Texture "scarpet" "color" "scale" "texture tex1" "carpet"
+"color tex2" [ .5 .3 .2 ]
+Material "matte" "texture Kd" "scarpet"
+
+Shape "trianglemesh" "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+600.000000 -600.000000 1000.000000
+600.000000 -600.000000 0.000000
+600.000000 600.000000 0.000000
+600.000000 600.000000 1000.000000 ]
+
+#right wall
+
+Texture "marblenoise" "color" "wrinkled"
+"float roughness" [0.9] "integer octaves" [8]
+Material "matte" "texture Kd" "marblenoise"
+
+#Texture "blackwhitechecks" "spectrum" "checkerboard"
+#"float uscale" [1] "float vscale" [800]
+#"rgb tex1" [1 0 0] "rgb tex2" [0 1 0]
+#Material "matte" "texture Kd" "blackwhitechecks"
+
+Shape "trianglemesh" "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+-600.000000 -600.000000 1000.000000
+-600.000000 -600.000000 0.000000
+-600.000000 600.000000 0.000000
+-600.000000 600.000000 1000.000000 ]
+
+#floor
+Texture "grid" "color" "imagemap" "string filename" ["lines.exr"]
+Texture "sgrid" "color" "scale" "texture tex1" "grid"
+"color tex2" [.6 .45 .3 ] # [ .5 .3 .2 ]
+Material "matte" "texture Kd" "sgrid"
+Shape "trianglemesh" "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+600.000000 -600.000000 1000.000000
+600.000000 -600.000000 0.000000
+-600.000000 -600.000000 0.000000
+-600.000000 -600.000000 1000.000000 ]
+"point2 uv" [ 0 0 0.7 0 0.7 0.7 0 0.7]
+
+#ceiling
+Material "matte" "color Kd" [.5 .2 .2]
+Shape "trianglemesh" "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+600.000000 600.000000 1000.000000
+600.000000 600.000000 0.000000
+-600.000000 600.000000 0.000000
+-600.000000 600.000000 1000.000000 ]
+AttributeEnd
+
+############################################################################
+# Small planes
+############################################################################
+AttributeBegin
+#Material "matte" "color Kd" [.5 .9 .5]
+
+#frontface
+
+Texture "marblenoise" "spectrum" "wrinkled"
+"float roughness" [0.1]
+Material "matte" "texture Kd" "marblenoise"
+
+#Texture "polkadots" "spectrum" "dots"
+#"float uscale" [100] "float vscale" [100]
+#Material "matte" "texture Kd" "polkadots"
+
+#Texture "orientedhalfspace" "spectrum" "checkerboard"
+#"vector v1" [0.2 0.2 0]
+#"vector v2" [0.1 0.1 0]
+#"string mapping" "planar"
+#"rgb tex1" [1 1 1] "rgb tex2" [0 0 0]
+#Material "matte" "texture Kd" "orientedhalfspace"
+
+Shape "trianglemesh"  "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+500.000000 -500.000000 400.000000
+500.000000 100.000000 400.000000
+200.000000 100.000000 400.000000
+200.000000 -500.000000 400.000000 ]
+"point2 uv" [ 0 0 1 0 1 1 0 1]
+AttributeEnd
+
+AttributeBegin
+#second face
+Texture "windytexture" "spectrum" "windy"
+Material "matte" "texture Kd" "windytexture"
+Shape "trianglemesh"  "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+300.000000 -500.000000 500.000000
+300.000000 100.000000 500.000000
+0.000000 100.000000 500.000000
+0.000000 -500.000000 500.000000 ]
+
+#third face
+Texture "marblenoise" "spectrum" "wrinkled"
+"float roughness" [0.9]
+Material "matte" "texture Kd" "marblenoise"
+Shape "trianglemesh"  "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+100.000000 -500.000000 600.000000
+100.000000 100.000000 600.000000
+-200.000000 100.000000 600.000000
+-200.000000 -500.000000 600.000000 ]
+
+#fourth face
+Texture "windytexture" "spectrum" "windy"
+#"float uscale" [400] "float vscale" [400]
+#"rgb tex1" [1 0 0] "rgb tex2" [0 0 1]
+Material "matte" "texture Kd" "windytexture"
+
+Shape "trianglemesh"  "integer indices" [0 2 1 0 3 2 ]
+"point P" [
+-200.000000 -500.000000 800.000000
+-200.000000 100.000000 800.000000
+-550.000000 100.000000 800.000000
+-550.000000 -500.000000 800.000000 ]
+
+AttributeEnd
+
+#frontmost medium disk
+AttributeBegin
+Translate 250 100 410
+
+#Texture "marblenoise" "spectrum" "wrinkled"
+#"float roughness" [0.9]
+#Material "matte" "texture Kd" "marblenoise"
+
+Texture "windytexture" "spectrum" "windy"
+Material "matte" "texture Kd" "windytexture"
+
+#Texture "checks" "spectrum" "checkerboard"
+#"float uscale" [10] "float vscale" [10]
+#"rgb tex1" [1 0 0] "rgb tex2" [0 0 1]
+#Material "matte" "texture Kd" "checks"
+
+Shape "disk" "float radius" [80] #"float height" [-1]
+#"point2 uv" [ 0 0 0.7 0 0.7 0.7 0 0.7]
+AttributeEnd
+
+#big near disk
+AttributeBegin
+Translate 150 100 450
+
+Texture "marblenoise" "spectrum" "wrinkled"
+"float roughness" [0.9]
+Material "matte" "texture Kd" "marblenoise"
+
+#Texture "checks" "spectrum" "checkerboard"
+#"float uscale" [10] "float vscale" [10]
+#"rgb tex1" [1 0 0] "rgb tex2" [0 0 1]
+#Material "matte" "texture Kd" "checks"
+
+Shape "disk" "float radius" [100] #"float height" [-1]
+#"point2 uv" [ 0 0 0.7 0 0.7 0.7 0 0.7]
+AttributeEnd
+
+
+#small far disk
+AttributeBegin
+Translate -300 80 600
+Texture "marblenoise" "spectrum" "wrinkled"
+"float roughness" [0.9]
+Material "matte" "texture Kd" "marblenoise"
+Shape "disk" "float radius" [60] #"float height" [-1]
+AttributeEnd
+
+
+WorldEnd

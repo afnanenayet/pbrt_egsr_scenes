@@ -1,0 +1,27 @@
+LookAt 400 20 30   0 63 -110   0 0 1
+Rotate -5 0 0 1
+Camera "perspective" "float fov" [ 30 ] "float lensradius" [ 0.25 ] "float focaldistance" [ 20.0 ]
+Film "image"
+"integer xresolution" [256] "integer yresolution" [256]
+
+
+# zoom in by feet
+# "integer xresolution" [1500] "integer yresolution" [1500]
+#	"float cropwindow" [0.25 0.75 0.25 0.75]
+
+# Sampler "bushpp" "integer strength" [2] "integer base" [2]
+Sampler "sobol" "integer pixelsamples" [1]
+
+Integrator "path"
+
+WorldBegin
+
+LightSource "point" "rgb I" [ .5 .5 .5 ]
+
+AttributeBegin
+  Material "matte" "color Kd" [.5 .5 .8]
+  Translate 0 0 -140
+Shape "sphere" "float radius" [1]
+AttributeEnd
+
+WorldEnd
